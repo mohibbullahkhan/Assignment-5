@@ -107,3 +107,29 @@ document.addEventListener('click', e => {
   if (action === 'copy') copyNumber(number);
   if (action === 'call') callService(name, number);
 });
+
+
+
+
+const historyList = document.querySelector('#historyList');
+const clearHistoryBtn = document.querySelector('#clearHistoryBtn');
+
+// Render Call History
+function renderHistory() {
+  historyList.innerHTML = state.history.map(h => `
+    <li class="flex justify-between text-sm border-b py-2">
+      <div>
+        <div class="font-bold">${h.name}</div>
+        <div class="text-gray-500">${h.number}</div>
+      </div>
+      <div class="text-gray-400">${h.time}</div>
+    </li>
+  `).join('');
+}
+
+// Clear History
+clearHistoryBtn.addEventListener('click', () => {
+  state.history = [];
+  renderHistory();
+});
+
