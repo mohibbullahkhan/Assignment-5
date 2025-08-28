@@ -65,3 +65,45 @@ function renderCards() {
 
 renderNav();
 renderCards();
+
+
+
+
+// Copy to clipboard
+async function copyNumber(number) {
+  await navigator.clipboard.writeText(number);
+  state.copyCount += 1;
+  renderNav();
+  alert(`Copied: ${number}`);
+}
+
+// Like card
+function likeCard() {
+  state.hearts += 1;
+  renderNav();
+}
+
+// Call service
+function callService(name, number) {
+  if (state.coins < CALL_COST) return alert('Not enough coins.');
+  alert(`Calling ${name} — ${number}`);
+  state.coins -= CALL_COST;
+  renderNav();
+  const time = new Date().toLocaleTimeString();
+  state.history.unshift({ name, number, time });
+  renderHistory();
+}
+
+// Event Delegation
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  const card = btn.closest('[data-id]');
+  const name = card?.getAttribute('data-name');
+  const number = card?.getAttribute('data-number');
+  const action = btn.getAttribute('data-action');
+
+  if (action === 'like') likeCard();
+  if (action === 'copy') copyNumber(number);
+  if (action === 'call') callService(name, number);
+});
