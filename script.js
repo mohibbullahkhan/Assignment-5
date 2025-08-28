@@ -1,16 +1,19 @@
 const CALL_COST = 20;
 
-// Service Cards Data
+
 const services = [
   { id: 1, name: 'National Emergency', subtitle: 'All Services', number: '999', badge: 'All', icon: './assets/emergency.png' },
   { id: 2, name: 'Police Helpline', subtitle: 'Police', number: '999', badge: 'Police', icon: './assets/police.png' },
   { id: 3, name: 'Fire Service', subtitle: 'Fire', number: '999', badge: 'Fire', icon: './assets/fire-service.png' },
   { id: 4, name: 'Ambulance', subtitle: 'Health', number: '1994-999999', badge: 'Health', icon: './assets/ambulance.png' },
   { id: 5, name: 'Women & Child', subtitle: 'Support', number: '109', badge: 'Help', icon: './assets/emergency.png' },
-  { id: 6, name: 'Anti-Corruption', subtitle: 'Government', number: '106', badge: 'Govt.', icon: './assets/logo-dark.png' }
+  { id: 6, name: 'Anti-Corruption', subtitle: 'Government', number: '106', badge: 'Govt.', icon: './assets/logo-dark.png' },
+  { id: 7, name: 'Electricity Helpline', subtitle: 'Electricity Outage', number: '16216', badge: 'Electricity', icon: './assets/logo-dark.png' },
+  { id: 8, name: 'Brac Helpline', subtitle: 'Brac', number: '16465', badge: 'NGO', icon: './assets/brac.png' },
+  { id: 9, name: 'Bangladesh Railway Helpline', subtitle: 'Bangladesh Railway', number: '163', badge: 'Travel', icon: './assets/Bangladesh-Railway.png' }
 ];
 
-// Application State
+
 const state = {
   hearts: 0,
   coins: 100,
@@ -19,20 +22,20 @@ const state = {
 };
 
 
-// DOM Elements
+
 const heartCount = document.querySelector('#heartCount');
 const coinCount = document.querySelector('#coinCount');
 const copyCount = document.querySelector('#copyCount');
 const cardGrid = document.querySelector('#cardGrid');
 
-// Render Navbar
+
 function renderNav() {
   heartCount.textContent = state.hearts;
   coinCount.textContent = state.coins;
   copyCount.textContent = state.copyCount;
 }
 
-// Generate Card HTML
+
 function generateCardHTML(s) {
   return `
     <article class="card p-4 bg-white rounded-xl shadow" data-id="${s.id}" data-name="${s.name}" data-number="${s.number}">
@@ -58,7 +61,7 @@ function generateCardHTML(s) {
   `;
 }
 
-// Render Cards
+
 function renderCards() {
   cardGrid.innerHTML = services.map(generateCardHTML).join('');
 }
@@ -69,7 +72,7 @@ renderCards();
 
 
 
-// Copy to clipboard
+
 async function copyNumber(number) {
   await navigator.clipboard.writeText(number);
   state.copyCount += 1;
@@ -77,13 +80,13 @@ async function copyNumber(number) {
   alert(`Copied: ${number}`);
 }
 
-// Like card
+
 function likeCard() {
   state.hearts += 1;
   renderNav();
 }
 
-// Call service
+
 function callService(name, number) {
   if (state.coins < CALL_COST) return alert('Not enough coins.');
   alert(`Calling ${name} — ${number}`);
@@ -94,7 +97,7 @@ function callService(name, number) {
   renderHistory();
 }
 
-// Event Delegation
+
 document.addEventListener('click', e => {
   const btn = e.target.closest('[data-action]');
   if (!btn) return;
@@ -114,7 +117,7 @@ document.addEventListener('click', e => {
 const historyList = document.querySelector('#historyList');
 const clearHistoryBtn = document.querySelector('#clearHistoryBtn');
 
-// Render Call History
+
 function renderHistory() {
   historyList.innerHTML = state.history.map(h => `
     <li class="flex justify-between text-sm border-b py-2">
@@ -127,7 +130,7 @@ function renderHistory() {
   `).join('');
 }
 
-// Clear History
+
 clearHistoryBtn.addEventListener('click', () => {
   state.history = [];
   renderHistory();

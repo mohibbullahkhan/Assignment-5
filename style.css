@@ -322,3 +322,34 @@ header .container {
   max-height: 70vh;
   overflow: auto;
 }
+
+
+:root {
+  --bg: #F2FBF6;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --success: #16a34a;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.hero { 
+  border-radius: 0 0 16px 16px; 
+}
+
+.card { transition: transform 0.2s; }
+.card:hover { transform: translateY(-2px); }
+
+.badge { font-weight: 600; }
+.btn { font-weight: 700; }
+
+.hero {
+  padding: 0;
+  background: linear-gradient(90deg, #013223 0%, #006747 50%, #013223 100%);
+  border-radius: 0 0 16px 16px;
+}
